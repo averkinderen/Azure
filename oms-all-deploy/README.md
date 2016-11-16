@@ -1,6 +1,6 @@
 # Microsoft Operations Management Suite
 
-[![Deploy to Azure](http://azuredeploy.net/deploybutton.svg)](https://deploy.azure.com/?repository=https://github.com/averkinderen/Azure?ptmpl=https://raw.githubusercontent.com/averkinderen/Azure/master/oms-all-deploy/azuredeploy.json)
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.svg)](https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/averkinderen/Azure/master/oms-all-deploy/azuredeploy.json)
 
 
 <a href="http://armviz.io/#/?load=https://raw.githubusercontent.com/averkinderen/Azure/master/oms-all-deploy/azuredeploy.json" target="_blank">
