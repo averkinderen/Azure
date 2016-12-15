@@ -11,7 +11,7 @@
     },
     "omsRecoveryVaultRegion": {
       "type": "string",
-      "defaultValue": "Australia East",
+      "defaultValue": "Australia Southeast",
       "allowedValues": [
         "West US",
         "East US",
@@ -64,7 +64,7 @@
     },
     "omsAutomationRegion": {
       "type": "string",
-      "defaultValue": "Australia Southeast",
+      "defaultValue": "West Europe",
       "allowedValues": [
         "Japan East",
         "East US 2",

@@ -6,19 +6,19 @@
       "value": "GEN-UNIQUE-9"
     },
     "omsRecoveryVaultRegion": {
-      "value": "Australia East
+      "value": "West Europe"
     },
     "omsWorkspaceName": {
       "value": "GEN-UNIQUE-10"
     },
     "omsWorkspaceRegion": {
-      "value": "Australia Southeast"
+      "value": "West Europe"
     },
     "omsAutomationAccountName": {
       "value": "GEN-UNIQUE-11"
     },
     "omsAutomationRegion": {
-      "value": "Australia Southeast"
+      "value": "West Europe"
     },
     "azureAdminPwd": {
       "value": "GEN-PASSWORD"

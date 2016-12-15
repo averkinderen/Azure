@@ -11,7 +11,7 @@
     },
     "omsAutomationRegion": {
       "type": "string",
-      "defaultValue": "West Europe",
+      "defaultValue": "Australia Southeast",
       "allowedValues": [
         "Japan East",
         "East US 2",
@@ -57,7 +57,7 @@
     },
     "_artifactsLocation": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/oms-all-deploy",
+      "defaultValue": "https://raw.githubusercontent.com/averkinderen/azure/master/oms-all-deploy",
       "metadata": {
         "description": "The base URI where artifacts required by this template are located"
       }
