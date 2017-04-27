@@ -1,0 +1,22 @@
+{
+  "if": {
+    "field": "tags",
+    "exists": "false"
+  },
+  "then": {
+    "effect": "append",
+    "details": [
+      {
+        "field": "tags",
+        "value": {
+          "Contact (Business)": "Please provide Business name",
+          "Contact (IT)": "Please provide IT contact",
+          "Contact (Vendor)": "Please provide vendor",
+          "Cost Center": "Please provide Cost Center",
+          "Department": "Please provide Department",
+          "Environment": "Please provide Environment"
+        }
+      }
+    ]
+  }
+}
