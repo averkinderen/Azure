@@ -114,7 +114,7 @@
       "type": "int",
       "defaultValue": "1000",
       "metadata": {
-        "description": "This is the bandwidth in Mbps of the circuit being created. It must exactly match one of the available bandwidth offers List ExpressRoute Service Providers API call."
+        "description": "This is the bandwidth in Mbps of the circuit being created. It must exactly match one of the available bandwidth offers List ExpressRoute."
       }
     },
     "sku_tier": {
