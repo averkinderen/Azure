@@ -10,18 +10,18 @@ $subscriptions = Get-AzureRmSubscription
 $menu = @{}
 for ($i = 1;$i -le $subscriptions.count; $i++) 
 {
-  Write-Host -Object "$i. $($subscriptions[$i-1].SubscriptionName)"
-  $menu.Add($i,($subscriptions[$i-1].SubscriptionId))
+  Write-Host -Object "$i. $($subscriptions[$i-1].Name)"
+  $menu.Add($i,($subscriptions[$i-1].Id))
 }
 
 [int]$ans = Read-Host -Prompt 'Enter selection'
 $subscriptionID = $menu.Item($ans)
 $subscription = Get-AzureRmSubscription -SubscriptionId $subscriptionID
-Set-AzureRmContext -SubscriptionName $subscription.SubscriptionName
+Set-AzureRmContext -SubscriptionName $subscription.Name
 #endregion
 
-$subId = (Get-AzureRmContext).Subscription.SubscriptionId
-$subName = (Get-AzureRmContext).Subscription.SubscriptionName
+$subId = (Get-AzureRmContext).Subscription.Id
+$subName = (Get-AzureRmContext).Subscription.Name
 
 Write-host "Policy is applied to the resource group: $resourceGroup in subscription: $subName"
 $policy = New-AzureRmPolicyDefinition -Name $policyName -Description $policyDescription -Policy $policyFile;
