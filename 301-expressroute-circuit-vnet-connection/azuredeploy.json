@@ -206,8 +206,11 @@
   "variables": {
     "apiVersion": "2015-06-15",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+    "subnetName": "[parameters('subnetName')]",
+    "subnet1Ref": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
     "gatewaySubnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('gatewaySubnet'))]",
-    "routingWeight": 3
+    "routingWeight": 3,
+    "virtualNetworkName": "[parameters('virtualNetworkName')]"
   },
   "resources": [
     {
@@ -321,6 +324,9 @@
       "apiVersion": "2015-01-01",
       "name": "NGSLinked",
       "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
