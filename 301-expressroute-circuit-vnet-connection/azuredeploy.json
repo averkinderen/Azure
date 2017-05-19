@@ -1,6 +1,6 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
   "parameters": {
     "gatewayType": {
       "type": "string",
@@ -50,6 +50,12 @@
       "type": "string",
       "metadata": {
         "description": "The name of the first subnet in the new virtual network."
+      }
+    },
+    "NSGName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the NSG to create."
       }
     },
     "subnetPrefix": {
@@ -197,18 +203,21 @@
       }
     }
   },
-    "variables": {
-    	"apiVersion": "2015-06-15",
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
-        "gatewaySubnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('gatewaySubnet'))]",
-        "routingWeight": 3
-    },
+  "variables": {
+    "apiVersion": "2015-06-15",
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
+    "gatewaySubnetRef": "[concat(variables('vnetID'),'/subnets/',parameters('gatewaySubnet'))]",
+    "routingWeight": 3
+  },
   "resources": [
     {
       "apiVersion": "[variables('apiVersion')]",
       "type": "Microsoft.Network/virtualNetworks",
       "name": "[parameters('virtualNetworkName')]",
       "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/networkSecurityGroups/', parameters('NSGName'))]"
+      ],
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
@@ -219,7 +228,10 @@
           {
             "name": "[parameters('subnetName')]",
             "properties": {
-              "addressPrefix": "[parameters('subnetPrefix')]"
+              "addressPrefix": "[parameters('subnetPrefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('NSGName'))]"
+              }
             }
           },
           {
@@ -272,25 +284,6 @@
       }
     },
     {
-      "apiVersion": "[variables('apiVersion')]",
-      "type": "Microsoft.Network/connections",
-      "name": "[parameters('connectionName')]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworkGateways/', parameters('gatewayName'))]"
-      ],
-      "properties": {
-        "virtualNetworkGateway1": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworkGateways',parameters('gatewayName'))]"
-        },
-        "peer": {
-          "id": "[resourceId('Microsoft.Network/expressRouteCircuits',parameters('circuitName'))]"
-        },
-        "connectionType": "[parameters('connectionType')]",
-        "routingWeight": "[variables('routingWeight')]"
-      }
-    },
-    {
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "name": "[parameters('circuitName')]",
@@ -323,6 +316,23 @@
         "key2": "value2"
       },
       "type": "Microsoft.Network/expressRouteCircuits"
+    },
+    {
+      "apiVersion": "2015-01-01",
+      "name": "NGSLinked",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/averkinderen/Azure/master/networkSecurityGroups/azuredeploy.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "virtualNetworkName": "[parameters('virtualNetworkName')]",
+          "NSGName": "[parameters('NSGName')]"
+        }
+      }
+
     }
   ]
 }

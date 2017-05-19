@@ -2,57 +2,57 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "deploymentContext": {
-      "type": "object",
-      "defaultValue": {
-        "parentTemplateUniqueString": "bbNSG"
-      }
-    },
-    "virtualNetworkSettings": {
+    "virtualNetworkName": {
       "type": "object"
     },
-    "networkSecurityGroupsSettings": {
-      "type": "array",
-      "metadata": {
-        "description": "Settings for network security groups"
-      }
+    "NSGName": {
+      "type": "string"
     }
   },
   "variables": {
-    "templateUniqueString": "[uniqueString(concat(string(parameters('deploymentContext')), string(parameters('networkSecurityGroupsSettings'))))]",
-    "nsgTemplate": "[uri(deployment().properties.templateLink.uri, '../../resources/Microsoft.Network/networkSecurityGroups/networkSecurityGroups.json')]",
-    "deploymentTemplateName": "[concat(parameters('deploymentContext').parentTemplateUniqueString, '-deployNSGs-', variables('templateUniqueString'))]"
+    "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]"
   },
-  "resources": [
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2015-01-01",
-      "name": "[variables('deploymentTemplateName')]",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('nsgTemplate')]"
-        },
-        "parameters": {
-          "deploymentContext": {
-            "value": {
-              "parentTemplateUniqueString": "[concat(variables('templateUniqueString'), '-deployNSGs')]"
-            }
-          },
-          "virtualNetworkSettings": {
-            "value": "[parameters('virtualNetworkSettings')]"
-          },
-          "networkSecurityGroupsSettings": {
-            "value": "[parameters('networkSecurityGroupsSettings')]"
+  {
+    "apiVersion": "2015-05-01-preview",
+    "location": "[resourceGroup().location]",
+    "name": "[parameters('NSGName')]",
+    "properties": {
+
+      "securityRules": [
+
+        {
+
+          "name": "web_rule",
+
+          "properties": {
+
+            "description": "Allow WEB",
+
+            "protocol": "Tcp",
+
+            "sourcePortRange": "*",
+
+            "destinationPortRange": "80",
+
+            "sourceAddressPrefix": "Internet",
+
+            "destinationAddressPrefix": "*",
+
+            "access": "Allow",
+
+            "priority": 101,
+
+            "direction": "Inbound"
+
           }
+
         }
-      }
+
+      ]
+
+    },
+    "type": "Microsoft.Network/networkSecurityGroups"
+  }
     }
   ],
-  "outputs": {
-    "resources": {
-      "type": "array",
-      "value": "[reference(variables('deploymentTemplateName')).outputResources]"
-    }
-  }
 }
