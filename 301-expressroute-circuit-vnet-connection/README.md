@@ -1,9 +1,9 @@
 # Connect a VNET to an ExpressRoute Circuit
 
-Connect a VNET to an ExpressRoute Circuit - <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2F301-expressroute-circuit-vnet-connection%2Fazuredeploy.json" target="_blank">
+Connect a VNET to an ExpressRoute Circuit - <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https://raw.githubusercontent.com/averkinderen/Azure/master/301-expressroute-circuit-vnet-connection/azuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
-<a href="http://armviz.io/#/?load=https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-quickstart-templates%2Fmaster%2F301-expressroute-circuit-vnet-connection%2Fazuredeploy.json" target="_blank">
+<a href="http://armviz.io/#/?load=https://raw.githubusercontent.com/averkinderen/Azure/master/301-expressroute-circuit-vnet-connection/azuredeploy.json" target="_blank">
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
