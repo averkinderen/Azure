@@ -1,7 +1,7 @@
 { 
-   "itemDisplayName": "Connect an ExpressRoute circuit to a VNET", 
+   "itemDisplayName": "Creates an Express Route circuit, Gateway, vnet", 
    "description": "This template creates a VNET, an ExpresRoute Gateway and a connection to a provisioned and enabled ExpressRoute circuit with AzurePrivatePeering configured.", 
    "summary": "Establish connection to a VNET via an ExpressRoute circuit", 
-   "githubUsername": "amitsriva", 
-   "dateUpdated": "2015-10-10" 
+   "githubUsername": "Averkinderen", 
+   "dateUpdated": "2017-05-19" 
 } 
