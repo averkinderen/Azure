@@ -12,6 +12,18 @@
         "description": "The type of gateway to deploy. For connecting to ExpressRoute circuits, the gateway must be of type ExpressRoute. Other types are Vpn."
       }
     },
+    "gatewaySku": {
+      "type": "string",
+      "defaultValue": "Standard",
+      "allowedValues": [
+        "Standard",
+        "High Performance",
+        "Ultra Performance"
+      ],
+      "metadata": {
+        "description": "The type of gateway to deploy. For connecting to ExpressRoute circuits, the gateway must be of type ExpressRoute. Other types are Vpn."
+      }
+    },
     "connectionType": {
       "type": "string",
       "defaultValue": "ExpressRoute",
@@ -105,10 +117,9 @@
         "Sydney",
         "Melbourne"
       ],
-        "metadata":
-        {
-          "description": "This is the name of the peering location and not the ARM resource location. It must exactly match one of the available peering locations from List ExpressRoute Service Providers API call."
-        }
+      "metadata": {
+        "description": "This is the name of the peering location and not the ARM resource location. It must exactly match one of the available peering locations from List ExpressRoute Service Providers API call."
+      }
     },
     "bandwidthInMbps": {
       "type": "int",
@@ -243,7 +254,11 @@
             "name": "vnetGatewayConfig"
           }
         ],
-        "gatewayType": "[parameters('gatewayType')]"
+        "gatewayType": "[parameters('gatewayType')]",
+        "sku": {
+          "name": "[parameters('gatewaysku')]",
+          "tier": "[parameters('gatewaysku')]"
+        }
       }
     },
     {
