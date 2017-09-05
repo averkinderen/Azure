@@ -2,3 +2,4 @@
 Set-WinSystemLocale en-AU
 Set-WinUserLanguageList -LanguageList en-AU
 Set-Culture -CultureInfo en-AU
+Set-WinHomeLocation -GeoId 12
