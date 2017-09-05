@@ -132,9 +132,7 @@
     }
   },
   "variables": {
-    "imageName": "[parameters('masterName')]",
-    "DSCVMSSFolder": "dsc",
-    "DSCVMSSFileName": "DSCVMSS.zip"
+    "imageName": "[parameters('masterName')]"
   },
   "resources": [
     {
