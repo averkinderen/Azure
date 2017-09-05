@@ -129,19 +129,12 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located. When the template is deployed using the accompanying scripts, a private location in the subscription will be used and this value will be automatically generated."
       }
-    },
-    "_artifactsLocationSasToken": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Auto-generated token to access _artifactsLocation"
-      }
     }
   },
   "variables": {
     "imageName": "[parameters('masterName')]",
     "DSCVMSSFolder": "dsc",
-    "DSCVMSSFileName": "DSCVMSS.zip",
-    "vnetName": "[parameters('existingVnetName')]"
+    "DSCVMSSFileName": "DSCVMSS.zip"
   },
   "resources": [
     {
@@ -149,9 +142,6 @@
       "name": "[parameters('vmssName')]",
       "location": "[resourceGroup().location]",
       "apiVersion": "2017-03-30",
-      "dependsOn": [
-        "[concat('Microsoft.Network/virtualNetworks/', variables('vnetName'))]"
-      ],
       "sku": {
         "name": "[parameters('vmSku')]",
         "capacity": "[parameters('instanceCount')]"
