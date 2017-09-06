@@ -6,7 +6,7 @@ Set-WinHomeLocation -GeoId 12
 Set-TimeZone -Name "E. Australia Standard Time"
 
 $drive = get-volume -FileSystemLabel 'Plexos Data'
-$plexos = $drive.DriveLetter + ':\temp'
+$plexos = $drive.DriveLetter + ':\Temp'
 [Environment]::SetEnvironmentVariable("PLEXOS_TEMP", $plexos, "Machine")
 
 
