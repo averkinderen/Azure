@@ -120,8 +120,16 @@
       "type": "string",
       "metadata": {
         "description": "Name of the master image.",
-        "defaultValue": "dronemasterv1"
+        "defaultValue": "dronemasterv2"
       }
+    },
+    "overprovision": {
+      "type": "string",
+      "defaultValue": "false",
+      "allowedValues": [
+        "false",
+        "true"
+      ]
     },
     "_artifactsLocation": {
       "defaultValue": "https://raw.githubusercontent.com/averkinderen/azure/master/201-vmss-win-existing-vnet",
@@ -145,7 +153,7 @@
         "capacity": "[parameters('instanceCount')]"
       },
       "properties": {
-        "overprovision": "true",
+        "overprovision": "[parameters('overprovision')]",
         "upgradePolicy": {
           "mode": "Automatic"
         },
