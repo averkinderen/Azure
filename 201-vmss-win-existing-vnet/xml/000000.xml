@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <ServiceSettings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <ParallelCount>0</ParallelCount>
+  <ParallelCount>1</ParallelCount>
   <Connections>
     <ConnectionSetting>
       <Host>10.0.0.4</Host>
       <Port>8888</Port>
-      <Name>MTPASATEMP</Name>
-      <Key>uvzoE5VAqcXvc9kHgnozn2sAecox5PthY/9MdAQM4ng=</Key>
+      <Name>mtpasass000000</Name>
+      <Key>T7CeJbWZBzp24Mmt/c4s49t4IMrqcmuMrOKLqXT/phc=</Key>
     </ConnectionSetting>
   </Connections>
 </ServiceSettings>
