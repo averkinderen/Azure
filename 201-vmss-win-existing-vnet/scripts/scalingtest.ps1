@@ -18,3 +18,10 @@ $capacity = import-csv $csv
 
 $vmss.sku.capacity = $capacity.servers
 Update-AzureRmVmss -ResourceGroupName $rgName -Name "scale set name" -VirtualMachineScaleSet $vmss 
+
+
+
+
+$vmss = Get-AzureRmVmss -ResourceGroupName winvmss -VMScaleSetName winvmss  
+$vmss.Sku.Capacity = 10
+Update-AzureRmVmss -ResourceGroupName winvmss -Name winvmss -VirtualMachineScaleSet $vmss  

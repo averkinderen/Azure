@@ -5,9 +5,6 @@ Script:      InstallOMSAgent.ps1
 Version:     1.0 
 Twitter:     @DanielOrneling 
 #> 
- 
-# Set the Workspace ID and Primary Key for the Log Analytics workspace. 
-[CmdletBinding(SupportsShouldProcess=$true)] 
 
  
 # Set the parameters
