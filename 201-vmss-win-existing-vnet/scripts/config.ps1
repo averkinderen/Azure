@@ -42,7 +42,7 @@ foreach ($item in $zip.items()) {
 #RUN CLIENT
 
 Set-Location -Path $plexos
-.\connect.client.exe --server "10.0.0.4" --port "8888" --name $machine --username "marketsims" --password "M@rket%^TYghbn"
+.\connect.client.exe --server "10.0.0.4" --port "8888" --name $machine --username "marketsims" --password "M@rket%^TYghbn" –worker-count 12
 Start-Service "PLEXOS Connect Client Service"
 
 #OMS
