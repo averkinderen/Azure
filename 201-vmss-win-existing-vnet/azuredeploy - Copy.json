@@ -166,7 +166,7 @@
               }
             },
             "imageReference": {
-              "id": "/subscriptions/2d64ce73-baa5-4624-abf6-0f7708753442/resourceGroups/MTPASA/providers/Microsoft.Compute/images/dronemasterv2"
+              "id": "[resourceId('Microsoft.Compute/images', variables('imageName'))]"
             }
           },
           "osProfile": {
