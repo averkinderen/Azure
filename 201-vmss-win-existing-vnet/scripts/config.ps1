@@ -10,9 +10,11 @@ $drive = get-volume -FileSystemLabel 'Plexos Data'
 $plexos = $drive.DriveLetter + ':\Temp'
 $plexoskeyfolder = 'C:\Users\marketsims\AppData\Roaming\PLEXOS'
 $plexosxmlfile = $plexoskeyfolder + '\PLEXOS Connect Client.xml'
+$licensefile = $plexoskeyfolder + '\EE_reg.xml'
 $clientfile = $plexos + '\clientutil.zip'
 $url = "https://raw.githubusercontent.com/averkinderen/Azure/master/201-vmss-win-existing-vnet/xml/" + $name + ".xml"
 $clientutilurl = "https://github.com/averkinderen/Azure/raw/master/201-vmss-win-existing-vnet/scripts/clientutil.zip"
+$licensefileURL = "https://github.com/averkinderen/Azure/raw/master/201-vmss-win-existing-vnet/scripts/EE_reg.xml"
 #endregion
 
 #start script
@@ -31,6 +33,7 @@ Set-TimeZone -Name "E. Australia Standard Time"
 $webclient = New-Object System.Net.WebClient
 #$webclient.DownloadFile($url,$plexosxmlfile)
 $webclient.DownloadFile($clientutilurl,$clientfile)
+$webclient.DownloadFile($licensefileURL,$licensefile)
 
 #EXTRACT ZIP
 $shell = New-Object -ComObject shell.application
