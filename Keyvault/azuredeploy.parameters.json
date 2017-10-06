@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters":
+  {
+    "region":
+    {
+      "value": "centralus"
+    },
+    "vmName":
+    {
+      "value": "vm2"
+    },
+    "vmAdminUserName":
+    {
+      "value": "myadmin"
+    },
+    "domainToJoin":
+    {
+      "value": "blueskyabove.local"
+    },
+    "domainUsername":
+    {
+      "value": "myadmin"
+    }
+  }
+}
