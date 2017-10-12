@@ -12,6 +12,7 @@ $plexoskeyfolder = 'C:\Users\marketsims\AppData\Roaming\PLEXOS'
 $plexosxmlfile = $plexoskeyfolder + '\PLEXOS Connect Client.xml'
 $licensefile = $plexoskeyfolder + '\EE_reg.xml'
 $clientfile = $plexos + '\clientutil.zip'
+$clientfolder = $plexos + '\clientutil'
 $url = "https://raw.githubusercontent.com/averkinderen/Azure/master/201-vmss-win-existing-vnet/xml/" + $name + ".xml"
 $clientutilurl = "https://github.com/averkinderen/Azure/raw/master/201-vmss-win-existing-vnet/scripts/clientutil.zip"
 $licensefileURL = "https://github.com/averkinderen/Azure/raw/master/201-vmss-win-existing-vnet/scripts/EE_reg.xml"
@@ -44,7 +45,7 @@ foreach ($item in $zip.items()) {
 
 #RUN CLIENT
 
-Set-Location -Path $plexos
+Set-Location -Path $clientfolder
 .\connect.client.exe --server "10.0.1.4" --port "8888" --license-server "10.0.1.4" --name $machine --username "marketsims" --password "M@rket%^TYghbn" --worker-count 13 --export-config "C:\Users\marketsims\AppData\Roaming\PLEXOS\PLEXOS Connect Client.xml"
 Start-Service "PLEXOS Connect Client Service"
 
