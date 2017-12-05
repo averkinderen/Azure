@@ -14,10 +14,11 @@
 
         [Parameter(Mandatory = $false)] 
         [ValidateNotNullorEmpty()] 
-        [String]$SystemTimeZone="Romance Standard Time" 
+        [String]$SystemTimeZone="Tonga Standard Time" 
     )
 
-    Import-DSCResource -ModuleName xTimeZone 
+    Import-DSCResource -ModuleName 'xTimeZone'
+    Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
     Node Localhost
     {
         User NewUser
@@ -34,6 +35,15 @@
         { 
             TimeZone = $SystemTimeZone
         } 
+
+                xEnvironment CreatePathEnvironmentVariable
+        {
+            Name = 'TestPathEnvironmentVariable'
+            Value = 'TestValue'
+            Ensure = 'Present'
+            Path = $true
+            Target = @('Process', 'Machine')
+        }
 
     }
 }
