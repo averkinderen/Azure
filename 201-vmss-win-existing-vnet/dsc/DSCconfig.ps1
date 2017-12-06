@@ -10,11 +10,7 @@
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [String]
-        $AccountDescription,
-
-        [Parameter(Mandatory = $false)] 
-        [ValidateNotNullorEmpty()] 
-        [String]$SystemTimeZone="Tonga Standard Time" 
+        $AccountDescription
     )
 
     Import-DSCResource -ModuleName 'xTimeZone'
@@ -33,7 +29,7 @@
 
         xTimeZone TimeZoneExample 
         { 
-            TimeZone = $SystemTimeZone
+            TimeZone = "Tonga Standard Time"
         } 
 
                 xEnvironment CreatePathEnvironmentVariable
