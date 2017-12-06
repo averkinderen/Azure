@@ -13,7 +13,6 @@
         $AccountDescription
     )
 
-    Import-DSCResource -ModuleName 'xTimeZone'
     Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
     Node Localhost
     {
@@ -27,10 +26,6 @@
             PasswordNeverExpires = $true
         }
 
-        xTimeZone TimeZoneExample 
-        { 
-            TimeZone = "Tonga Standard Time"
-        } 
 
                 xEnvironment CreatePathEnvironmentVariable
         {
