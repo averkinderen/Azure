@@ -5,12 +5,7 @@
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [PSCredential]
-        $Credential,
-
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [String]
-        $AccountDescription
+        $Credential
     )
 
     Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
@@ -19,7 +14,6 @@
         User NewUser
         {
             UserName             = $Credential.UserName
-            Description          = $AccountDescription
             Disabled             = $false
             Ensure               = 'Present'
             Password             = $Credential.Password
