@@ -5,11 +5,16 @@
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [PSCredential]
-        $Credential
+        $Credential,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [String]
+        $nodeName
     )
 
     Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
-    Node Localhost
+    Node $nodeName
     {
         User NewUser
         {
