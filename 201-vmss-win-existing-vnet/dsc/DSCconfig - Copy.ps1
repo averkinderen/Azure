@@ -16,6 +16,15 @@
     Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
     Node $nodeName
     {
+        User NewUser
+        {
+            UserName             = $Credential.UserName
+            Disabled             = $false
+            Ensure               = 'Present'
+            Password             = $Credential.Password
+            PasswordNeverExpires = $true
+        }
+
 
                 xEnvironment CreatePathEnvironmentVariable
         {
