@@ -13,18 +13,10 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName 'xPSDesiredStateConfiguration'
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking
+
     Node $nodeName
-    PsDscAllowPlainTextPassword = $true
-    {
-            User NewUser
-        {
-            UserName             = $Credential.UserName
-            Disabled             = $false
-            Ensure               = 'Present'
-            Password             = $Credential.Password
-            PasswordNeverExpires = $true
-        }
+
 
                 xEnvironment CreatePathEnvironmentVariable
         {
@@ -34,6 +26,19 @@
             Path = $true
             Target = @('Process', 'Machine')
         }
+
+        		xFirewall Plexos
+		{
+			Name = 'Plexos-Port-In-TCP'
+			Group = 'Web Server'
+			Ensure = 'Present'
+			Action = 'Allow'
+			Enabled = 'True'
+			Profile = 'Any'
+			Direction = 'Inbound'
+			Protocol = 'TCP'
+			LocalPort = 339
+		}
 
     }
 }
