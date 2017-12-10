@@ -13,7 +13,7 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, SystemLocaleDsc
 
     Node $nodeName
 
@@ -61,5 +61,11 @@
                     TimeZone         = 'E. Australia Standard Time'
         
                 }
+
+        SystemLocale Australia
+        {
+            IsSingleInstance = 'Yes'
+            SystemLocale     = 'en-AU'
+        }        
     }
 }
