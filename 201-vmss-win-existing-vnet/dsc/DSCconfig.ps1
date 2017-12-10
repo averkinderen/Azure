@@ -13,17 +13,17 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone
 
     Node $nodeName
 
-
+    {
                 xEnvironment CreatePathEnvironmentVariable
         {
-            Name = 'PLEXOS_TEMP'
-            Value = 'F:\Temp'
-            Ensure = 'Present'
-            Path = $true
+            Name = "DSCTest"
+            Ensure = "Present"
+            Path = "$True"
+            Value = "C:\Scripts"
             Target = @('Process', 'Machine')
         }
 
