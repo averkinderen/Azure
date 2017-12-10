@@ -20,16 +20,16 @@
     {
                 xEnvironment CreatePathEnvironmentVariable
         {
-            Name = "PLEXOS_TEMP"
+            Name = "DSCTest"
             Ensure = "Present"
             Path = $True
-            Value = "F:\TEMP"
+            Value = "C:\Scripts"
             Target = @('Process', 'Machine')
         }
 
-        		xFirewall PlexosLicense
+        		xFirewall Plexos
 		{
-			Name = 'PlexosLicense-Port-In-TCP'
+			Name = 'Plexos-Port-In-TCP'
 			Group = 'Web Server'
 			Ensure = 'Present'
 			Action = 'Allow'
@@ -37,29 +37,8 @@
 			Profile = 'Any'
 			Direction = 'Inbound'
 			Protocol = 'TCP'
-			LocalPort = 399
-        }
-        
-        xFirewall PlexosConnect
-		{
-			Name = 'PlexosConnect-Port-In-TCP'
-			Group = 'Web Server'
-			Ensure = 'Present'
-			Action = 'Allow'
-			Enabled = 'True'
-			Profile = 'Any'
-			Direction = 'Inbound'
-			Protocol = 'TCP'
-			LocalPort = 8888
-        }
+			LocalPort = 339
+		}
 
-        xTimeZone TimeZone
-        
-                {
-        
-                    IsSingleInstance = 'Yes'
-                    TimeZone         = 'E. Australia Standard Time'
-        
-                }
     }
 }
