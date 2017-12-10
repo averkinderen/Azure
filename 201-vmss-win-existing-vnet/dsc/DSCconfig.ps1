@@ -22,7 +22,7 @@
         {
             Name = "DSCTest"
             Ensure = "Present"
-            Path = "$True"
+            Path = $True
             Value = "C:\Scripts"
             Target = @('Process', 'Machine')
         }
