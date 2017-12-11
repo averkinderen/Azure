@@ -16,8 +16,10 @@
     Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, xStorage, LanguageDsc, xPendingReboot, cDisk, xDisk
 
     Node $nodeName
-
     {
+        LocalConfigurationManager{
+            RebootNodeIfNeeded = $True
+        }
                 xEnvironment CreatePathEnvironmentVariable
         {
             Name = "PLEXOS_TEMP"
@@ -121,8 +123,6 @@
             Name = "Check for a pending reboot before changing anything"
         }
 
-        LocalConfigurationManager{
-            RebootNodeIfNeeded = $True
-        }
+
     }
 }
