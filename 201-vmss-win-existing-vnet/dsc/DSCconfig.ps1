@@ -13,13 +13,15 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, cDisk, xDisk
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage
 
     Node $nodeName
     {
-        LocalConfigurationManager{
+        LocalConfigurationManager
+        {
             RebootNodeIfNeeded = $True
         }
+        
                 xEnvironment CreatePathEnvironmentVariable
         {
             Name = "PLEXOS_TEMP"
@@ -27,12 +29,13 @@
             Path = $True
             Value = "F:\TEMP"
             Target = @('Process', 'Machine')
+            DependsOn = "[File]PlexosFolder"
         }
 
         		xFirewall PlexosLicense
 		{
 			Name = 'PlexosLicense-Port-In-TCP'
-			Group = 'Web Server'
+			Group = 'Plexos'
 			Ensure = 'Present'
 			Action = 'Allow'
 			Enabled = 'True'
@@ -45,7 +48,7 @@
         xFirewall PlexosConnect
 		{
 			Name = 'PlexosConnect-Port-In-TCP'
-			Group = 'Web Server'
+			Group = 'Plexos'
 			Ensure = 'Present'
 			Action = 'Allow'
 			Enabled = 'True'
@@ -76,6 +79,7 @@
             UserLocale = "en-AU"
             CopySystem = $true 
             CopyNewUser = $true
+            DependsOn = "[File]PlexosFolder"
         }
         
         xUser NewUser
@@ -99,15 +103,14 @@
         
         {
             DiskId = 2            
-            RetryIntervalSec = 60
-            RetryCount = 60        
+            RetryIntervalSec = 20
+            RetryCount = 30        
         }
         
-        cDiskNoRestart DataDisk
-        {
+        xDisk ADDataDisk {
             DiskNumber = 2
             DriveLetter = "F"
-            DependsOn = "[xWaitforDisk]Disk2"
+            DependsOn = "[xWaitForDisk]Disk2"
         }
 
         File PlexosFolder
@@ -116,11 +119,12 @@
              Ensure = 'Present'        
              Type = 'Directory'        
              DestinationPath = 'F:\Temp'
-             DependsOn = "[cDiskNoRestart]DataDisk"        
+             DependsOn = "[xDisk]ADDataDisk"        
         }
 
         xPendingReboot PreTest{
             Name = "Check for a pending reboot before changing anything"
+            DependsOn =  "[Language]ConfigureLanguage"
         }
 
 
