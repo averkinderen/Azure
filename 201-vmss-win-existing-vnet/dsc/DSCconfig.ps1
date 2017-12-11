@@ -90,7 +90,7 @@
         {
             DiskId = 2            
             RetryIntervalSec = 60
-            Count = 60        
+            RetryCount = 60        
         }
         
         xDisk FVolume
