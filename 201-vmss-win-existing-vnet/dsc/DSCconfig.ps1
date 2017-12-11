@@ -13,7 +13,7 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, xStorage, LanguageDsc, xPendingReboot, cDisk, xDisk
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, cDisk, xDisk
 
     Node $nodeName
     {
