@@ -2,21 +2,15 @@
 {
     Param
     (
-
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [String]
-        $nodeName,
-
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [String]
-        $LocalAdminUserName,
-
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [PSCredential]
-        $Password
+        $Credential,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [String]
+        $nodeName
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage, SecurityPolicyDsc
@@ -29,14 +23,28 @@
             ActionAfterReboot = 'ContinueConfiguration'
         }
 
-                xEnvironment CreatePathEnvironmentVariable
+        xUser NewUser
         {
-            Name = "PLEXOS_TEMP"
-            Ensure = "Present"
-            Path = $True
-            Value = "F:\TEMP"
-            Target = @('Process', 'Machine')
-            DependsOn = "[File]PlexosFolder"
+            UserName             = $Credential.UserName
+            Password             = $Credential
+            Disabled             = $false
+            Ensure               = 'Present'
+            PasswordNeverExpires = $true
+        }
+
+        Group GroupSet
+        {
+            GroupName = 'Administrators'
+            Ensure = 'Present'
+            MembersToInclude = $Credential.UserName
+            DependsOn = "[xUser]NewUser"
+        }
+
+        UserRightsAssignment LogonAsaService
+        {            
+            Policy = "Log_on_as_a_service"
+            Identity = "Builtin\Administrators"
+            DependsOn = "[Group]GroupSet"
         }
 
         		xFirewall PlexosLicense
@@ -86,30 +94,6 @@
             DependsOn = "[File]PlexosFolder"
         }
         
-        User NewUser
-        {
-            UserName             = $LocalAdminUserName
-            Password             = $Password
-            Disabled             = $false
-            Ensure               = 'Present'
-            PasswordNeverExpires = $true
-        }
-
-        Group GroupSet
-        {
-            GroupName = 'Administrators'
-            Ensure = 'Present'
-            MembersToInclude = $LocalAdminUserName
-            DependsOn = "[xUser]NewUser"
-        }
-
-        UserRightsAssignment LogonAsaService
-        {            
-            Policy = "Log_on_as_a_service"
-            Identity = "Builtin\Administrators"
-            DependsOn = "[Group]GroupSet"
-        }
-
         xWaitforDisk Disk2        
         {
             DiskId = 2            
@@ -129,6 +113,16 @@
              Type = 'Directory'        
              DestinationPath = 'F:\Temp'
              DependsOn = "[xDisk]ADDataDisk"        
+        }
+
+        xEnvironment CreatePathEnvironmentVariable
+        {
+            Name = "PLEXOS_TEMP"
+            Ensure = "Present"
+            Path = $True
+            Value = "F:\TEMP"
+            Target = @('Process', 'Machine')
+            DependsOn = "[File]PlexosFolder"
         }
 
         xPendingReboot PreTest
