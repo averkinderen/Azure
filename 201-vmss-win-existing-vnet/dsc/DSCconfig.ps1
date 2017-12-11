@@ -13,7 +13,7 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, SystemLocaleDsc
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, xStorage, LanguageDsc
 
     Node $nodeName
 
@@ -62,10 +62,18 @@
         
                 }
 
-        SystemLocale Australia
+        Language ConfigureLanguage 
         {
-            IsSingleInstance = 'Yes'
-            SystemLocale     = 'en-AU'
+            IsSingleInstance = "Yes" 
+            LocationID = 12 
+            MUILanguage = "en-AU" 
+            MUIFallbackLanguage = "en-US"
+            SystemLocale = "en-AU" 
+            AddInputLanguages = @("0c09:00000409") 
+            RemoveInputLanguages = @("0409:00000409")
+            UserLocale = "en-AU"
+            CopySystem = $true 
+            CopyNewUser = $true
         }
         
         xUser NewUser
@@ -75,6 +83,31 @@
             Disabled             = $false
             Ensure               = 'Present'
             PasswordNeverExpires = $true
+        }
+
+        xWaitforDisk Disk2
+        
+        {
+            DiskNumber = 2            
+            RetryIntervalSec = 60
+            Count = 60        
+        }
+        
+        xDisk FVolume
+        
+        {        
+            DiskNumber = 2            
+            DriveLetter = 'F'            
+            FSLabel = 'Plexos'        
+        }
+
+        File PlexosFolder
+        
+        {        
+             Ensure = 'Present'        
+             Type = 'Directory'        
+             DestinationPath = 'F:\Temp'
+             DependsOn = "[xDisk]FVolume"        
         }
     }
 }
