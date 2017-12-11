@@ -1,0 +1,15 @@
+*.suo
+*.user
+*.coverage
+.vs
+.psproj
+.sln
+DscResource.Tests
+DscResource.Tests/*
+Modules/xStorage/DscResource.Tests
+Modules/xStorage/DscResource.Tests/*
+node_modules
+node_modules/*
+markdownissues.txt
+TestResults.xml
+Tests/Integration/test.iso
