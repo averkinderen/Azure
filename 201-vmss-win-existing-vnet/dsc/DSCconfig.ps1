@@ -13,7 +13,7 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, xStorage, LanguageDsc
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, xStorage, LanguageDsc, xPendingReboot, cDisk, xDisk
 
     Node $nodeName
 
@@ -85,6 +85,14 @@
             PasswordNeverExpires = $true
         }
 
+        xGroupSet GroupSet
+        {
+            GroupName = @( 'Administrators')
+            Ensure = 'Present'
+            MembersToInclude = @( '$Credential.UserName' )
+            DependsOn = "[xUser]NewUser"
+        }
+
         xWaitforDisk Disk2
         
         {
@@ -93,13 +101,11 @@
             RetryCount = 60        
         }
         
-        xDisk FVolume
-        
-        {        
-            DiskId = 2            
-            DriveLetter = 'F'            
-            FSLabel = 'Plexos'
-            DependsOn = "[xWaitforDisk]Disk2"        
+        cDiskNoRestart DataDisk
+        {
+            DiskNumber = 2
+            DriveLetter = "F"
+            DependsOn = "[xWaitforDisk]Disk2"
         }
 
         File PlexosFolder
@@ -109,6 +115,14 @@
              Type = 'Directory'        
              DestinationPath = 'F:\Temp'
              DependsOn = "[xDisk]FVolume"        
+        }
+
+        xPendingReboot PreTest{
+            Name = "Check for a pending reboot before changing anything"
+        }
+
+        LocalConfigurationManager{
+            RebootNodeIfNeeded = $True
         }
     }
 }
