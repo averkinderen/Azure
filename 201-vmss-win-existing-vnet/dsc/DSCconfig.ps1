@@ -19,7 +19,7 @@
     {
         LocalConfigurationManager
         {
-            RebootNodeIfNeeded = $True
+            #RebootNodeIfNeeded = $True
             ActionAfterReboot = 'ContinueConfiguration'
         }
 
@@ -125,10 +125,10 @@
              DependsOn = "[xDisk]ADDataDisk"        
         }
 
-        xPendingReboot PreTest
-        {
-            Name = "Check for a pending reboot"
-            DependsOn =  "[Language]ConfigureLanguage"
-        }
+      #  xPendingReboot PreTest
+      #  {
+      #      Name = "Check for a pending reboot"
+      #      DependsOn =  "[Language]ConfigureLanguage"
+      #  }
     }
 }
