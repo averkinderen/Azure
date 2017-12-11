@@ -2,15 +2,21 @@
 {
     Param
     (
-        [Parameter(Mandatory=$true)]
-        [ValidateNotNullorEmpty()]
-        [PSCredential]
-        $Credential,
 
         [Parameter(Mandatory=$true)]
         [ValidateNotNullorEmpty()]
         [String]
-        $nodeName
+        $nodeName,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [String]
+        $LocalAdminUserName,
+
+        [Parameter(Mandatory=$true)]
+        [ValidateNotNullorEmpty()]
+        [PSCredential]
+        $Password
     )
 
     Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage, SecurityPolicyDsc
@@ -80,10 +86,10 @@
             DependsOn = "[File]PlexosFolder"
         }
         
-        xUser NewUser
+        User NewUser
         {
-            UserName             = $Credential.UserName
-            Password             = $Credential
+            UserName             = $LocalAdminUserName
+            Password             = $Password
             Disabled             = $false
             Ensure               = 'Present'
             PasswordNeverExpires = $true
@@ -93,7 +99,7 @@
         {
             GroupName = 'Administrators'
             Ensure = 'Present'
-            MembersToInclude = $Credential.UserName
+            MembersToInclude = $LocalAdminUserName
             DependsOn = "[xUser]NewUser"
         }
 
