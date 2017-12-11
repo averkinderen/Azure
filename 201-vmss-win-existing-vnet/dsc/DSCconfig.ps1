@@ -89,7 +89,7 @@
             PasswordNeverExpires = $true
         }
 
-        xGroupSet GroupSet
+        Group GroupSet
         {
             GroupName = 'Administrators'
             Ensure = 'Present'
@@ -101,7 +101,7 @@
         {            
             Policy = "Log_on_as_a_service"
             Identity = "Builtin\Administrators"
-            DependsOn = "[xGroupSet]GroupSet"
+            DependsOn = "[Group]GroupSet"
         }
 
         xWaitforDisk Disk2        
