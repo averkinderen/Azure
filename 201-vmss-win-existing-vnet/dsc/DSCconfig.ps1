@@ -19,21 +19,12 @@
     {
         LocalConfigurationManager
         {
-            #RebootNodeIfNeeded = $True
+            RebootNodeIfNeeded = $True
             ActionAfterReboot = 'ContinueConfiguration'
         }
 
-                xEnvironment CreatePathEnvironmentVariable
-        {
-            Name = "PLEXOS_TEMP"
-            Ensure = "Present"
-            Path = $True
-            Value = "F:\TEMP"
-            Target = @('Process', 'Machine')
-            DependsOn = "[File]PlexosFolder"
-        }
 
-        		xFirewall PlexosLicense
+        xFirewall PlexosLicense
 		{
 			Name = 'PlexosLicense-Port-In-TCP'
 			Group = 'Plexos'
@@ -59,27 +50,6 @@
 			LocalPort = 8888
         }
 
-        xTimeZone TimeZone        
-        {
-            IsSingleInstance = 'Yes'
-            TimeZone         = 'E. Australia Standard Time'        
-        }
-
-        Language ConfigureLanguage 
-        {
-            IsSingleInstance = "Yes" 
-            LocationID = 12 
-            MUILanguage = "en-AU" 
-            MUIFallbackLanguage = "en-US"
-            SystemLocale = "en-AU" 
-            AddInputLanguages = @("0c09:00000409") 
-            RemoveInputLanguages = @("0409:00000409")
-            UserLocale = "en-AU"
-            CopySystem = $true 
-            CopyNewUser = $true
-            DependsOn = "[File]PlexosFolder"
-        }
-        
         xUser NewUser
         {
             UserName             = $Credential.UserName
@@ -104,6 +74,12 @@
             DependsOn = "[Group]GroupSet"
         }
 
+        xTimeZone TimeZone        
+        {
+            IsSingleInstance = 'Yes'
+            TimeZone         = 'E. Australia Standard Time'        
+        }
+
         xWaitforDisk Disk2        
         {
             DiskId = 2            
@@ -125,10 +101,30 @@
              DependsOn = "[xDisk]ADDataDisk"        
         }
 
-        xPendingReboot PreTest
-       {
-            Name = "Check for a pending reboot"
-            DependsOn =  "[Language]ConfigureLanguage"
+        xEnvironment CreatePathEnvironmentVariable
+        {
+            Name = "PLEXOS_TEMP"
+            Ensure = "Present"
+            Path = $True
+            Value = "F:\TEMP"
+            Target = @('Process', 'Machine')
+            DependsOn = "[File]PlexosFolder"
         }
+
+         Language ConfigureLanguage 
+        {
+            IsSingleInstance = "Yes" 
+            LocationID = 12 
+            MUILanguage = "en-AU" 
+            MUIFallbackLanguage = "en-US"
+            SystemLocale = "en-AU" 
+            AddInputLanguages = @("0c09:00000409") 
+            RemoveInputLanguages = @("0409:00000409")
+            UserLocale = "en-AU"
+            CopySystem = $true 
+            CopyNewUser = $true
+            DependsOn = "[File]PlexosFolder"
+        }
+
     }
 }
