@@ -21,7 +21,7 @@
         {
             RebootNodeIfNeeded = $True
         }
-        
+
                 xEnvironment CreatePathEnvironmentVariable
         {
             Name = "PLEXOS_TEMP"
@@ -108,13 +108,12 @@
         }
         
         xDisk ADDataDisk {
-            DiskNumber = 2
+            DiskId = 2
             DriveLetter = "F"
             DependsOn = "[xWaitForDisk]Disk2"
         }
 
         File PlexosFolder
-        
         {        
              Ensure = 'Present'        
              Type = 'Directory'        
@@ -122,7 +121,8 @@
              DependsOn = "[xDisk]ADDataDisk"        
         }
 
-        xPendingReboot PreTest{
+        xPendingReboot PreTest
+        {
             Name = "Check for a pending reboot before changing anything"
             DependsOn =  "[Language]ConfigureLanguage"
         }
