@@ -116,7 +116,7 @@
              Ensure = 'Present'        
              Type = 'Directory'        
              DestinationPath = 'F:\Temp'
-             DependsOn = "[xDisk]FVolume"        
+             DependsOn = "[cDiskNoRestart]DataDisk"        
         }
 
         xPendingReboot PreTest{
