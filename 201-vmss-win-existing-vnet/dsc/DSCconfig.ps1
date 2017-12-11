@@ -16,7 +16,6 @@
     Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage, SecurityPolicyDsc
 
     Node $nodeName
-    PSDscAllowPlainTextPassword = $true
     {
         LocalConfigurationManager
         {
@@ -105,8 +104,7 @@
             DependsOn = "[xGroupSet]GroupSet"
         }
 
-        xWaitforDisk Disk2
-        
+        xWaitforDisk Disk2        
         {
             DiskId = 2            
             RetryIntervalSec = 20
