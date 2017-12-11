@@ -13,13 +13,15 @@
         $nodeName
     )
 
-    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage
+    Import-DscResource -ModuleName xPSDesiredStateConfiguration, xNetworking, xTimeZone, LanguageDsc, xPendingReboot, xStorage, SecurityPolicyDsc
 
     Node $nodeName
+    PSDscAllowPlainTextPassword = $true
     {
         LocalConfigurationManager
         {
             RebootNodeIfNeeded = $True
+            ActionAfterReboot = 'ContinueConfiguration'
         }
 
                 xEnvironment CreatePathEnvironmentVariable
@@ -58,14 +60,11 @@
 			LocalPort = 8888
         }
 
-        xTimeZone TimeZone
-        
-                {
-        
-                    IsSingleInstance = 'Yes'
-                    TimeZone         = 'E. Australia Standard Time'
-        
-                }
+        xTimeZone TimeZone        
+        {
+            IsSingleInstance = 'Yes'
+            TimeZone         = 'E. Australia Standard Time'        
+        }
 
         Language ConfigureLanguage 
         {
@@ -93,10 +92,17 @@
 
         xGroupSet GroupSet
         {
-            GroupName = @( 'Administrators')
+            GroupName = 'Administrators'
             Ensure = 'Present'
-            MembersToInclude = @( '$Credential.UserName' )
+            MembersToInclude = $Credential.UserName
             DependsOn = "[xUser]NewUser"
+        }
+
+        UserRightsAssignment LogonAsaService
+        {            
+            Policy = "Log_on_as_a_service"
+            Identity = "Builtin\Administrators"
+            DependsOn = "[xGroupSet]GroupSet"
         }
 
         xWaitforDisk Disk2
@@ -123,10 +129,8 @@
 
         xPendingReboot PreTest
         {
-            Name = "Check for a pending reboot before changing anything"
+            Name = "Check for a pending reboot"
             DependsOn =  "[Language]ConfigureLanguage"
         }
-
-
     }
 }
