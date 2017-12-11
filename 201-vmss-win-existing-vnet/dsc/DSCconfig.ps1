@@ -88,7 +88,7 @@
         xWaitforDisk Disk2
         
         {
-            DiskNumber = 2            
+            DiskId = 2            
             RetryIntervalSec = 60
             Count = 60        
         }
@@ -96,9 +96,10 @@
         xDisk FVolume
         
         {        
-            DiskNumber = 2            
+            DiskId = 2            
             DriveLetter = 'F'            
-            FSLabel = 'Plexos'        
+            FSLabel = 'Plexos'
+            DependsOn = "[xWaitforDisk]Disk2"        
         }
 
         File PlexosFolder
