@@ -19,11 +19,10 @@
     {
         LocalConfigurationManager
         {
-            RebootNodeIfNeeded = $True
+            RebootNodeIfNeeded = $false
             ActionAfterReboot = 'ContinueConfiguration'
         }
-
-
+        
         xFirewall PlexosLicense
 		{
 			Name = 'PlexosLicense-Port-In-TCP'
@@ -124,6 +123,12 @@
             CopySystem = $true 
             CopyNewUser = $true
             DependsOn = "[File]PlexosFolder"
+        }
+
+                xPendingReboot Reboot1
+        { 
+            Name = 'reboot'
+             DependsOn = "[Language]ConfigureLanguage"
         }
 
     }
