@@ -66,6 +66,15 @@
         {
             IsSingleInstance = 'Yes'
             SystemLocale     = 'en-AU'
-        }        
+        }
+        
+        xUser NewUser
+        {
+            UserName             = $Credential.UserName
+            Password             = $Credential
+            Disabled             = $false
+            Ensure               = 'Present'
+            PasswordNeverExpires = $true
+        }
     }
 }
