@@ -132,7 +132,10 @@
 
         Script ConfigPlexos
         {
-            SetScript = {"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server "10.1.2.99" --port "8888" --name "testheadserver" --username "vmAdmin" --password "P@ssw0rd!1234" –worker-count 8}
+            SetScript = {
+                cmd.exe
+                "C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server "10.1.2.99" --port "8888" --name "testheadserver" --username "vmAdmin" --password "P@ssw0rd!1234" –worker-count 8
+                }
             TestScript = { $false }
             GetScript = { }
         }
