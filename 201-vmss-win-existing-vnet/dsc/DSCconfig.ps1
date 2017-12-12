@@ -126,10 +126,10 @@
         Name        = "PLEXOS Connect Client"
         ProductId   = "6603B46E-B758-4255-9006-3CB4F273672D"
         Arguments = "SVCUSER=vmAdmin SVCPASS=P@ssw0rd!1234"
-        LogPath = "F:\Temp\Installplexos.log"
+        LogPath = "$env:SystemDrive\Installplexos.log"
         DependsOn = "[xRemoteFile]ConnectMSI"
         } 
-        
+
         Language ConfigureLanguage 
         {
             IsSingleInstance = "Yes" 
