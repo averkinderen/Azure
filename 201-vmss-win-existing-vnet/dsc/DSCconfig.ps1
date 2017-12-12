@@ -110,7 +110,14 @@
             DependsOn = "[File]PlexosFolder"
         }
 
-         Language ConfigureLanguage 
+        xMsiPackage ConnectClient
+        {
+            ProductId = '{6603B46E-B758-4255-9006-3CB4F273672D}'
+            Path = 'https://azrrmtpasasta01.blob.core.windows.net/mtpasa/PLEXOS.Connect.Client.3.00R01.msi'
+            Ensure = 'Present'
+        }
+
+        Language ConfigureLanguage 
         {
             IsSingleInstance = "Yes" 
             LocationID = 12 
@@ -125,7 +132,7 @@
             DependsOn = "[File]PlexosFolder"
         }
 
-                xPendingReboot Reboot1
+        xPendingReboot Reboot1
         { 
             Name = 'reboot'
              DependsOn = "[Language]ConfigureLanguage"
