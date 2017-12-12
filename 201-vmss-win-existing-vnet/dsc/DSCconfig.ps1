@@ -134,7 +134,7 @@
         {
             SetScript = {
                 cd "C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client"
-                cmd /c connect.client.exe --server 10.1.2.99 --port 8888 --name testheadserver --username $Credential.UserName --password $Credential –worker-count 8
+                cmd /c "connect.client.exe --server 10.1.2.99 --port 8888 --name testheadserver --username $Credential.UserName --password $Credential –worker-count 8"
                 }
             TestScript = { $false }
             GetScript = { }
