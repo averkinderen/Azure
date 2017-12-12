@@ -21,6 +21,7 @@
         {
             RebootNodeIfNeeded = $false
             ActionAfterReboot = 'ContinueConfiguration'
+            ConfigurationMode = 'ApplyOnly'
         }
         
         xFirewall PlexosLicense
@@ -110,12 +111,21 @@
             DependsOn = "[File]PlexosFolder"
         }
 
-        xMsiPackage ConnectClient
+        xRemoteFile ConnectMSI
         {
-            ProductId = '{6603B46E-B758-4255-9006-3CB4F273672D}'
-            Path = 'https://azrrmtpasasta01.blob.core.windows.net/mtpasa/PLEXOS.Connect.Client.3.00R01.msi'
-            Ensure = 'Present'
+            Uri = 'https://azrrmtpasasta01.blob.core.windows.net/mtpasa/PLEXOS.Connect.Client.3.00R01.msi'
+            DestinationPath = 'F:\TEMP\PLEXOS.Connect.Client.3.00R01.msi'
+            DependsOn = "[File]PlexosFolder"
         }
+
+        Package ConnectClient
+        {
+        Ensure      = "Present"
+        Path        = "F:\TEMP\PLEXOS.Connect.Client.3.00R01.msi"
+        Name        = "PLEXOS Connect Client"
+        ProductId   = "6603B46E-B758-4255-9006-3CB4F273672D"
+        DependsOn = "[xRemoteFile]ConnectMSI"
+        } 
 
         Language ConfigureLanguage 
         {
@@ -129,13 +139,12 @@
             UserLocale = "en-AU"
             CopySystem = $true 
             CopyNewUser = $true
-            DependsOn = "[File]PlexosFolder"
         }
 
-        xPendingReboot Reboot1
+        xPendingReboot Reboot
         { 
             Name = 'reboot'
-             DependsOn = "[Language]ConfigureLanguage"
+             DependsOn = "[Package]ConnectClient"
         }
 
     }
