@@ -128,7 +128,14 @@
         Arguments = "SVCUSER=vmAdmin SVCPASS=P@ssw0rd!1234"
         LogPath = "$env:SystemDrive\Installplexos.log"
         DependsOn = "[xRemoteFile]ConnectMSI"
-        } 
+        }
+
+        Script ConfigPlexos
+        {
+            SetScript = {"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server "10.1.2.99" --port "8888" --name "testheadserver" --username "vmAdmin" --password "P@ssw0rd!1234" –worker-count 8}
+            TestScript = { $false }
+            GetScript = { }
+        }
 
         Language ConfigureLanguage 
         {
