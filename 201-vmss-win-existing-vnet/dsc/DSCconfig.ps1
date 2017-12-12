@@ -114,7 +114,7 @@
         xRemoteFile ConnectMSI
         {
             Uri = 'https://azrrmtpasasta01.blob.core.windows.net/mtpasa/PLEXOS.Connect.Client.3.00R01.msi'
-            DestinationPath = '$env:SystemDrive\PLEXOS.Connect.Client.3.00R01.msi'
+            DestinationPath = "$env:SystemDrive\PLEXOS.Connect.Client.3.00R01.msi"
             DependsOn = "[File]PlexosFolder"
         }
 
