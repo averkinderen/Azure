@@ -125,7 +125,7 @@
         Path        = "$env:SystemDrive\PLEXOS.Connect.Client.3.00R01.msi"
         Name        = "PLEXOS Connect Client"
         ProductId   = "6603B46E-B758-4255-9006-3CB4F273672D"
-        Arguments = SVCUSER=marketsims SVCPASS=P@ssw0rd!1234
+        Arguments = "SVCUSER=marketsims SVCPASS=P@ssw0rd!1234"
         LogPath = "$env:SystemDrive\Installplexos.log"
         DependsOn = "[xRemoteFile]ConnectMSI"
         }
