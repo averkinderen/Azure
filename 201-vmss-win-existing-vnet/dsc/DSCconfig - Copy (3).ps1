@@ -17,7 +17,12 @@
 
     Node $nodeName
     {
-
+        LocalConfigurationManager
+        {
+            RebootNodeIfNeeded = $false
+            ActionAfterReboot = 'ContinueConfiguration'
+            ConfigurationMode = 'ApplyOnly'
+        }
         
         xFirewall PlexosLicense
 		{
@@ -125,17 +130,29 @@
         DependsOn = "[xRemoteFile]ConnectMSI"
         }
 
-
         Script ConfigPlexos
         {
             SetScript = {
-                cmd /c '"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server 10.192.40.60 --port 8888 --name "%computername%" --username marketsims --password Eidolon1989 --worker-count 13"'
+                cmd /c '"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" " --server 10.192.40.60 --port 8888 --license-server 10.192.40.60 --license-port 399 --name "%computername%" --username marketsims --password Eidolon1989 --worker-count 13"' 
                 }
             TestScript = {$false}
             GetScript = { }
             DependsOn = "[Package]ConnectClient"
         }
 
+        Language ConfigureLanguage 
+        {
+            IsSingleInstance = "Yes" 
+            LocationID = 12 
+            MUILanguage = "en-AU" 
+            MUIFallbackLanguage = "en-US"
+            SystemLocale = "en-AU" 
+            AddInputLanguages = @("0c09:00000409") 
+            RemoveInputLanguages = @("0409:00000409")
+            UserLocale = "en-AU"
+            CopySystem = $true 
+            CopyNewUser = $true
+        }
 
         Service Plexosservice
         {
@@ -143,21 +160,6 @@
             StartupType = "Automatic"
             State       = "Running"
            DependsOn = "[Script]ConfigPlexos"
-        }
-
-
-            Language ConfigureLanguage {
-        IsSingleInstance = "Yes" 
-        LocationID = 12 
-        MUILanguage = "en-AU" 
-        MUIFallbackLanguage = "en-US"
-        SystemLocale = "en-AU" 
-        AddInputLanguages = @("0c09:00000409") 
-        RemoveInputLanguages = @("0409:00000409")
-        UserLocale = "en-AU"
-        CopySystem = $true 
-        CopyNewUser = $true
-    }
-
+        } 
     }
 }
