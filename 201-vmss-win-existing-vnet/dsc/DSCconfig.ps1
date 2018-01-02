@@ -18,7 +18,18 @@
     Node $nodeName
     {
 
-        
+        Language ConfigureLanguage {
+        IsSingleInstance = "Yes" 
+        LocationID = 12 
+        MUILanguage = "en-AU" 
+        MUIFallbackLanguage = "en-US"
+        SystemLocale = "en-AU" 
+        AddInputLanguages = @("0c09:00000409") 
+        RemoveInputLanguages = @("0409:00000409")
+        UserLocale = "en-AU"
+        CopySystem = $true 
+        CopyNewUser = $true
+    }        
         xFirewall PlexosLicense
 		{
 			Name = 'PlexosLicense-Port-In-TCP'
@@ -52,6 +63,7 @@
             Disabled             = $false
             Ensure               = 'Present'
             PasswordNeverExpires = $true
+            DependsOn = "[Language]ConfigureLanguage"
         }
 
         Group GroupSet
@@ -125,8 +137,7 @@
         DependsOn = "[xRemoteFile]ConnectMSI"
         }
 
-
-        Script ConfigPlexos
+        xScript ConfigPlexos
         {
             SetScript = {
                 cmd /c '"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server 10.192.40.60 --port 8888 --name "%computername%" --username marketsims --password Eidolon1989 --worker-count 13"'
@@ -134,8 +145,8 @@
             TestScript = {$false}
             GetScript = { }
             DependsOn = "[Package]ConnectClient"
+            PsDscRunAsCredential = $Credential
         }
-
 
         Service Plexosservice
         {
@@ -144,20 +155,6 @@
             State       = "Running"
            DependsOn = "[Script]ConfigPlexos"
         }
-
-
-            Language ConfigureLanguage {
-        IsSingleInstance = "Yes" 
-        LocationID = 12 
-        MUILanguage = "en-AU" 
-        MUIFallbackLanguage = "en-US"
-        SystemLocale = "en-AU" 
-        AddInputLanguages = @("0c09:00000409") 
-        RemoveInputLanguages = @("0409:00000409")
-        UserLocale = "en-AU"
-        CopySystem = $true 
-        CopyNewUser = $true
-    }
 
     }
 }
