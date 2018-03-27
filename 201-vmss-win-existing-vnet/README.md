@@ -1,4 +1,4 @@
-# Deploy a VM Scale Set into an existing vnet and subnet
+# Deploy a VM Scale Set into an existing vnet and subnet and install software
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Faverkinderen%2FAzure%2Fmaster%2F201-vmss-win-existing-vnet%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
