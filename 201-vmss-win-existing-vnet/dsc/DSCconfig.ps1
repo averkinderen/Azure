@@ -132,7 +132,7 @@
         Path        = "$env:SystemDrive\PLEXOS.Connect.Client.3.00R01.msi"
         Name        = "PLEXOS Connect Client"
         ProductId   = "6603B46E-B758-4255-9006-3CB4F273672D"
-        Arguments = "SVCUSER=marketsims SVCPASS=Eidolon1989"
+        Arguments = "SVCUSER=marketsims SVCPASS="
         LogPath = "$env:SystemDrive\Installplexos.log"
         DependsOn = "[xRemoteFile]ConnectMSI"
         }
@@ -140,7 +140,7 @@
         xScript ConfigPlexos
         {
             SetScript = {
-                cmd /c '"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server 10.192.40.60 --port 8888 --name "%computername%" --username marketsims --password Eidolon1989 --worker-count 13"'
+                cmd /c '"C:\Program Files (x86)\Energy Exemplar\PLEXOS Connect Client\connect.client.exe" --server 10.192.40.60 --port 8888 --name "%computername%" --username marketsims --password  --worker-count 13"'
                 }
             TestScript = {$false}
             GetScript = { }
