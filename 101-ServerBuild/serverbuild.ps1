@@ -1,5 +1,12 @@
+$regionalsettingsURL = "https://raw.githubusercontent.com/averkinderen/Azure/master/101-ServerBuild/AURegion.xml"
+
+#downdload files
+$webclient = New-Object System.Net.WebClient
+$webclient.DownloadFile($regionalsettingsURL,$RegionalSettings)
+
+
 # Set Locale, language etc. 
-& $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"AURegion.xml`""
+& $env:SystemRoot\System32\control.exe "intl.cpl,,/f:`"$RegionalSettings`""
 
 # Set languages/culture
 Set-WinSystemLocale en-AU
