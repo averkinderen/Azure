@@ -1,5 +1,5 @@
 $regionalsettingsURL = "https://raw.githubusercontent.com/averkinderen/Azure/master/101-ServerBuild/AURegion.xml"
-
+$RegionalSettings = "D:\AURegion.xml"
 #downdload files
 $webclient = New-Object System.Net.WebClient
 $webclient.DownloadFile($regionalsettingsURL,$RegionalSettings)
