@@ -11,7 +11,7 @@
 <gs:SystemLocale Name="en-AU"/>
 <!-- GeoID -->
 <gs:LocationPreferences> 
-    <gs:GeoID Value="242"/> 
+    <gs:GeoID Value="12"/> 
 </gs:LocationPreferences>
 <gs:MUILanguagePreferences>
 	<gs:MUILanguage Value="en-AU"/>
